@@ -1,0 +1,51 @@
+#include<bits/stdc++.h>
+using namespace std;
+//https://codeforces.com/problemset/problem/439/D
+long long  a[100001], b[100001];
+long long n,m;
+unsigned long long minn =99999999999999999;
+long long f(long long x)
+{
+	long long result =0;
+	//cout << x<< endl;
+	for (long long i=0; i < n; i++)
+	{
+		if (x > a[i]) result += x -a[i];
+	}
+	for (long long i=0; i < m; i++)
+	{
+		if (x < b[i]) result += b[i]-x;
+	}
+	if(result < minn)  minn = result;
+//	cout << result<<endl;
+	return result;
+}
+void ternarySearch()
+{
+	long long  l=0, r=1e9+1;
+	long long i = 100;
+	while(r-l>3)
+	{
+		long long mid1 = l + (r-l)/3;
+		long long mid2 = r - (r-l)/3;
+	    if(f(mid1) < f(mid2)) r =mid2;
+		else l = mid1;	
+	//	i--;
+	}
+	printf("%ld",minn);
+	cout << endl;
+}
+int main()
+{
+	cin >> n >> m;
+	for (long long  i =0; i < n; i++)
+	{
+		cin >> a[i] ;
+	}
+		for (long long i =0; i < m; i++)
+	{
+		cin >> b[i];
+	}
+	ternarySearch();
+	return 0;
+}

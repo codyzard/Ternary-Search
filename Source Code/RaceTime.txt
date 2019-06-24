@@ -1,0 +1,43 @@
+#include<iostream>
+#include<vector>
+#include <iomanip>
+using namespace std;
+//https://www.codechef.com/problems/AMCS03
+int n;
+double k;
+vector <double>s,d;
+double F(double t)
+{
+	double ma=1e-9,mi=1e9,p;
+	for (int i =0; i<n; i++)
+	{
+		// tim kiem cac toc doc lon nhat va be nhat cua cac xe 
+		p = s[i]*t + d[i];
+		ma = max(ma,p);
+		mi = min(mi,p);
+	}
+	return ma - mi;
+}
+int main()
+{
+	double m1,m2,v1,v2,l,r,max,min;
+	cin >> n >> k;
+	s.resize(n);
+	d.resize(n);
+	for (int i = 0; i< n; i++) cin >> s[i] >> d[i];
+	l = 0, r = k;
+	while (r-l >1e-9 )
+	{
+		m1 = l+(r-l)/3.0;
+		m2 = l+(r-l)*2.0/3.0;
+		
+		v1 = F(m1);
+		v2 = F(m2);
+		
+		if(v1 > v2)  l = m1;
+		else r = m2;
+	}
+	double Ft = F((l));
+	printf("%.6lf", Ft);
+	return 0;
+}

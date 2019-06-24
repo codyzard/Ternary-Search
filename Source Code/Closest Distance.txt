@@ -1,0 +1,43 @@
+#include <iostream>
+#include<stdio.h>
+#include<cmath>
+using namespace std;
+int const N = 100;
+struct point 
+{
+	int x;
+	int y;
+};
+point a, b, c, d;
+double f(double t)
+{
+	double xf1, yf1, xf2, yf2,kq;
+	xf1 = t * double(b.x - a.x) + double(a.x);
+	yf1 = t * double(b.y - a.y) + double(a.y);
+	xf2 = t * double(d.x - c.x) + double(c.x);
+	yf2 = t * double(d.y - c.y) + double(c.y);
+	kq = sqrt(pow(xf2 - xf1, 2) + pow(yf2 - yf1, 2));
+	return kq;
+}
+double tamphan()
+{
+	double m1, m2, l = 0, r = 1;
+	for (int i = 0; i < 101; i++)
+	{
+		m1 = l + (r - l) / 3;
+		m2 = r - (r - l) / 3;
+		if (f(m1) > f(m2)) l = m1;
+		else r = m2;
+	}
+	return f((l + r) / 2);
+}
+int main()
+{
+	int t,dem=1;
+	cin >> t;
+	while (t--)
+	{
+		cin >> a.x >> a.y >> b.x >> b.y >> c.x >> c.y >> d.x >> d.y;
+		printf("Case %d: %lf\n",dem++, tamphan());
+	}
+}

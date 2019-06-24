@@ -1,0 +1,46 @@
+#include <iostream>
+#include<stdio.h>
+#include<cmath>
+using namespace std;
+double x[52000], y[52000];
+double xmin, xmax;
+long n;
+double f(double t)
+{
+	double kq = 0,tam;
+	for (long i = 0; i < n; i++)
+	{
+		tam = sqrt(pow(x[i] - t, 2) + pow(y[i], 2));
+		if (kq < tam) kq = tam;
+	}
+	return kq;
+}
+double tamphan()
+{
+	double m1, m2, l = xmin, r = xmax;
+	for (int i = 0; i < 101; i++)
+	{
+		m1 = l + (r - l) / 3;
+		m2 = r - (r - l) / 3;
+		if (f(m1) > f(m2)) l = m1;
+		else r = m2;
+	}
+	printf("%.5lf ", (l + r) / 2);
+	return f((l + r) / 2);
+}
+int main()
+{
+	while (true)
+	{
+		cin >> n;
+		if (n == 0) break;
+		xmin = 200001, xmax = -200001;
+		for (long i=0; i < n; i++)
+		{
+			scanf("%lf %lf", x+i,y+i);
+			if (xmin > x[i]) xmin = x[i];
+			if (xmax < x[i]) xmax = x[i];
+		}
+		printf("%.5lf\n", tamphan());
+	}
+}
